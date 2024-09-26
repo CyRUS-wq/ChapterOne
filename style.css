@@ -8,6 +8,7 @@ font-family: 'Poppins', sans-serif;
 }
 body {
 background: #eaeaea;
+overflow-y: hidden;
 }
 
 .header {
@@ -42,7 +43,7 @@ transition: .3s;
 
 .navbar a:hover, 
 .navbar a.active {
-    color: #1338BE
+    color: #b7b7b9
 }
 
 .social-media {
@@ -66,12 +67,12 @@ transition: .3s;
 }
 
 .social-media a:hover {
-    border-color: red;
+    border-color: #65350F
 }
 
 .social-media a i {
     font-size: 24px;
-    color: red;
+    color: #65350F;
     transform: rotate(-45deg);
 }
 
@@ -123,6 +124,35 @@ transition: .3s;
 .btn:hover {
     background: transparent;
     color: #463324;
+}
+
+.Dostoevsky img{
+    width: 300px;
+    margin-right: 110px;
+}
+
+.quote {
+    font-family: "Questrial", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 5px;
+  }
+  
+  .signature {
+    font-family: "Mr De Haviland", cursive;
+    font-weight: 350;
+    font-style: normal;
+    font-size: 34px;
+    margin-left: 244px;
+    transform: rotate(-15deg);
+    margin-top: -30px;
+  }
+  
+  footer {
+    /* text-align: center; */
+    margin-left: 640px;
+    filter: opacity(0.5);
+    
 }
 
 
