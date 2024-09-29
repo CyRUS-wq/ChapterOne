@@ -3,53 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookstore Shop</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Shop - ChapterOne Bookstore</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #eaeaea;
+            padding-top: 100px; /* Space for navbar */
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 40px;
+        }
+
+        /* Filter section */
+        .filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filter select {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #00154d;
+            border-radius: 5px;
+        }
+
+        /* Book grid */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .book-item {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .book-item img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .book-item h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .book-item p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .book-item .price {
+            font-size: 1.2em;
+            color: #00154d;
+            margin-bottom: 15px;
+        }
+
+        .book-item button {
+            background-color: #00154d;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .book-item button:hover {
+            background-color: #b7b7b9;
+        }
+
+        /* Cart Notification */
+        .cart-notification {
+            background-color: #00c853;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            display: none;
+            z-index: 999;
+            border-radius: 5px;
+        }
+
+    </style>
 </head>
 <body>
-   
+
+    <!-- Header (Navbar) -->
     <header class="header">
-        <a href="#" class="logo">ChapterOne.</a>
+        <a href="#" class="logo">ChapterOne</a>
         
         <nav class="navbar">
-            <a href="index.html">Home</a>
-            <a href="#">Shop</a>
-            <a href="#">Featured</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="index.html" style="--i:1;">Home</a>
+            <a href="shop.html" class="active" style="--i:2;">Shop</a>
+            <a href="#" style="--i:3;">Featured</a>
+            <a href="about.html" style="--i:4;">About</a>
+            <a href="contact.html" style="--i:5;">Contact</a>
+            <a href="cart.html" style="--i:6;" class="cart-link">
+                <i class='bx bx-cart'></i> Cart (<span id="cart-count">0</span>)
+            </a>
+            <a href="login.html" style="--i:7;"></a>
+                <i class='bx bx-user'></i> Login
+            </a>
         </nav>
 
+        <div class="social-media">
+            <a href="#" style="--i:1;"><i class='bx bxl-twitter'></i></a>
+            <a href="#" style="--i:2;"><i class='bx bxl-instagram'></i></a>
+            <a href="#" style="--i:3;"><i class='bx bxl-github'></i></a>
+        </div>
     </header>
 
-    <main>
-        <!-- <h2>Books Available</h2> -->
-        <div class="book-list">
-            <div class="book-item">
-                <img src="placeholder.jpg" alt="Book Cover">
-                <h3>Book Title 1</h3>
-                <p>Author: Author Name</p>
-                <p>Price: $20.00</p>
-                <button>Add to Cart</button>
-            </div>
-            <div class="book-item">
-                <img src="placeholder.jpg" alt="Book Cover">
-                <h3>Book Title 2</h3>
-                <p>Author: Author Name</p>
-                <p>Price: $15.00</p>
-                <button>Add to Cart</button>
-            </div>
-            <div class="book-item">
-                <img src="placeholder.jpg" alt="Book Cover">
-                <h3>Book Title 3</h3>
-                <p>Author: Author Name</p>
-                <p>Price: $25.00</p>
-                <button>Add to Cart</button>
-            </div>
-        </div>
-    </main>
+    <!-- Cart Notification -->
+    <div class="cart-notification" id="cart-notification">
+        Added to cart!
+    </div>
 
-    <footer>
-        <p>&copy; 2024 Online Bookstore. All rights reserved.</p>
-    </footer>
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Shop Books</h1>
+
+        <!-- Filter Section -->
+        <div class="filter">
+            <label for="filter">Filter by Category:</label>
+            <select id="filter" onchange="filterBooks()">
+                <option value="all">All</option>
+                <option value="fiction">Fiction</option>
+                <option value="non-fiction">Non-Fiction</option>
+                <option value="science">Science</option>
+                <option value="technology">Technology</option>
+            </select>
+        </div>
+
+        <!-- Book Grid -->
+        <div class="book-grid" id="book-grid">
+            <!-- Books will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        const books = [
+            { id: 1, title: 'The Great Gatsby', category: 'fiction', price: 499, img: 'https://via.placeholder.com/150' },
+            { id: 2, title: 'A Brief History of Time', category: 'science', price: 599, img: 'https://via.placeholder.com/150' },
+            { id: 3, title: 'Clean Code', category: 'technology', price: 799, img: 'https://via.placeholder.com/150' },
+            { id: 4, title: 'Sapiens', category: 'non-fiction', price: 699, img: 'https://via.placeholder.com/150' },
+            { id: 5, title: 'The Pragmatic Programmer', category: 'technology', price: 899, img: 'https://via.placeholder.com/150' },
+            { id: 6, title: 'To Kill a Mockingbird', category: 'fiction', price: 399, img: 'https://via.placeholder.com/150' },
+        ];
+
+        const cart = [];
+
+        function displayBooks(booksToDisplay) {
+            const bookGrid = document.getElementById('book-grid');
+            bookGrid.innerHTML = ''; // Clear the current grid
+            booksToDisplay.forEach(book => {
+                const bookItem = `
+                    <div class="book-item" data-category="${book.category}">
+                        <img src="${book.img}" alt="${book.title}">
+                        <h3>${book.title}</h3>
+                        <p class="price">₹${book.price}</p>
+                        <button onclick="addToCart(${book.id})">Add to Cart</button>
+                    </div>
+                `;
+                bookGrid.innerHTML += bookItem;
+            });
+        }
+
+        function filterBooks() {
+            const filter = document.getElementById('filter').value;
+            if (filter === 'all') {
+                displayBooks(books);
+            } else {
+                const filteredBooks = books.filter(book => book.category === filter);
+                displayBooks(filteredBooks);
+            }
+        }
+
+        function addToCart(bookId) {
+            const book = books.find(b => b.id === bookId);
+            if (book) {
+                cart.push(book);
+                sessionStorage.setItem('cart', JSON.stringify(cart));
+                showCartNotification();
+            }
+        }
+
+        function showCartNotification() {
+            const notification = document.getElementById('cart-notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+
+        // Initialize book display
+        window.onload = function() {
+            const savedCart = sessionStorage.getItem('cart');
+            if (savedCart) {
+                cart.push(...JSON.parse(savedCart));
+            }
+            displayBooks(books);
+        }
+    </script>
+
 </body>
 </html>
